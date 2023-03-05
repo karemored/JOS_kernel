@@ -1,12 +1,13 @@
 // Basic string routines.  Not hardware optimized, but not shabby.
 
 #include <inc/string.h>
+#include <inc/stdio.h>
 
 // Using assembly for memset/memmove
 // makes some difference on real hardware,
 // but it makes an even bigger difference on bochs.
 // Primespipe runs 3x faster this way.
-#define ASM 1
+#define ASM 0
 
 int
 strlen(const char *s)
@@ -199,7 +200,10 @@ memmove(void *dst, const void *src, size_t n)
 			*--d = *--s;
 	} else
 		while (n-- > 0)
-			*d++ = *s++;
+			{
+				//cprintf("\nn = %u",(uint32_t)n);
+			        *d++ = *s++;
+			}
 
 	return dst;
 }
